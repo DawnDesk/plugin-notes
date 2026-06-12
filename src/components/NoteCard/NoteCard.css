@@ -1,0 +1,66 @@
+.note-card {
+  display: grid;
+  gap: var(--dd-space-2);
+  border: var(--dd-border-width) solid var(--dd-border);
+  border-radius: var(--dd-radius-md);
+  background: var(--dd-bg-surface);
+  padding: var(--dd-space-3);
+}
+
+.note-card--active {
+  border-color: var(--dd-accent);
+  background: var(--dd-accent-muted);
+}
+
+.note-card__main {
+  display: grid;
+  gap: var(--dd-space-2);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  text-align: left;
+}
+
+.note-card__eyebrow {
+  color: var(--dd-text-muted);
+  font-size: var(--dd-text-xs);
+  font-weight: 700;
+}
+
+.note-card__title {
+  color: var(--dd-text-primary);
+  font-size: var(--dd-text-md);
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.note-card__preview {
+  color: var(--dd-text-secondary);
+  display: -webkit-box;
+  font-size: var(--dd-text-sm);
+  line-height: var(--dd-line-normal);
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.note-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dd-space-1);
+}
+
+.note-card__tag {
+  border: var(--dd-border-width) solid var(--dd-border);
+  border-radius: var(--dd-radius-sm);
+  color: var(--dd-text-secondary);
+  font-size: var(--dd-text-xs);
+  padding: var(--dd-space-1) var(--dd-space-2);
+}
+
+.note-card__actions {
+  display: flex;
+  gap: var(--dd-space-2);
+  justify-content: flex-end;
+}

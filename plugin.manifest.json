@@ -1,31 +1,131 @@
 {
-  "id": "plugin-template",
-  "name": "Plugin Template",
+  "id": "notes",
+  "name": "Notes",
   "version": "0.1.0",
   "minHostVersion": "1.0.0",
-  "description": "A ready-to-clone starter for building DawnDesk plugins.",
+  "description": "Clean, fast note-taking with Markdown support and AI writing assistance.",
   "author": "dawndesk",
-  "repository": "https://github.com/dawndesk/plugin-template",
+  "repository": "https://github.com/dawndesk/plugin-notes",
   "icon": "icon.svg",
-  "category": "developer",
+  "category": "productivity",
   "entry": "index.html",
   "permissions": [
     "data:read",
-    "data:write"
+    "data:write",
+    "ai:call"
   ],
   "aiTools": [
     {
-      "name": "template_health_check",
-      "description": "Checks whether the plugin sidecar is reachable and returns template metadata.",
+      "name": "create_note",
+      "description": "Creates a new Markdown note. Use when the user asks to save something, write something down, or create a note.",
       "inputSchema": {
         "type": "object",
-        "properties": {},
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The note title"
+          },
+          "content": {
+            "type": "string",
+            "description": "The note body in Markdown"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional tags to attach to the note"
+          }
+        },
+        "required": ["title", "content"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "search_notes",
+      "description": "Searches note titles, Markdown content, and tags using a simple full-text substring search.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search text"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of matches to return"
+          }
+        },
+        "required": ["query"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "update_note",
+      "description": "Updates an existing note's Markdown content, and optionally its title or tags.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The note ID"
+          },
+          "content": {
+            "type": "string",
+            "description": "The replacement Markdown content"
+          },
+          "title": {
+            "type": "string",
+            "description": "Optional replacement title"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional replacement tags"
+          }
+        },
+        "required": ["id", "content"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "delete_note",
+      "description": "Deletes a note by ID.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The note ID"
+          }
+        },
+        "required": ["id"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "list_notes",
+      "description": "Lists recent or pinned notes.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pinned_only": {
+            "type": "boolean",
+            "description": "Return only pinned notes"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Maximum number of notes to return"
+          }
+        },
         "additionalProperties": false
       }
     }
   ],
-  "dataDir": "plugin-template",
+  "dataDir": "notes",
   "sidecar": {
-    "binary": "plugin-template-sidecar"
+    "binary": "notes-sidecar"
   }
 }

@@ -63,8 +63,8 @@ plugin-notes/
   "id": "notes",
   "name": "Notes",
   "category": "productivity",
-  "permissions": ["fs:read", "fs:write", "ai:tools", "events:emit"],
-  "aiTools": [{"name":"create_note","description":"Create a new note with given title and content"},{"name":"search_notes","description":"Search notes by keyword or semantic query"},{"name":"append_to_note","description":"Append content to an existing note by title"}]
+  "permissions": ["data:read", "data:write", "ai:call"],
+  "aiTools": [{"name":"create_note"},{"name":"search_notes"},{"name":"update_note"},{"name":"delete_note"},{"name":"list_notes"}]
 }
 ```
 

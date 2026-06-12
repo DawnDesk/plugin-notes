@@ -1,5 +1,5 @@
 [package]
-name = "plugin-template-sidecar"
+name = "notes-sidecar"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"

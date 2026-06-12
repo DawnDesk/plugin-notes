@@ -1,6 +1,30 @@
-.template-actions {
+.notes-toolbar {
   display: flex;
   flex-wrap: wrap;
   gap: var(--dd-space-2);
   justify-content: flex-end;
+}
+
+.notes-shell {
+  display: grid;
+  grid-template-columns: minmax(18rem, 24rem) minmax(0, 1fr);
+  gap: var(--dd-space-5);
+  min-height: 0;
+}
+
+.notes-sidebar {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--dd-space-4);
+  min-height: 0;
+}
+
+@media (width <= 64rem) {
+  .notes-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .notes-sidebar {
+    grid-template-rows: auto auto;
+  }
 }

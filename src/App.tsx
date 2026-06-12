@@ -1,31 +1,66 @@
 import { Button, PluginPanel, useDawnDesk } from '@dawndesk/ui'
-import { TemplateFeature, useTemplateState } from './features/template'
+import { NoteEditor } from './components/NoteEditor/NoteEditor'
+import { NoteList } from './components/NoteList/NoteList'
+import { TagFilter } from './components/TagFilter/TagFilter'
+import { useNotes } from './hooks/useNotes'
 import './App.css'
 
 function App() {
   const { pluginInfo } = useDawnDesk()
-  const templateState = useTemplateState()
-  const pluginName = pluginInfo?.name ?? 'Plugin Template'
-  const pluginId = pluginInfo?.id ?? 'plugin-template'
-  const pluginVersion = pluginInfo?.version ?? '0.1.0'
+  const notes = useNotes()
+
+  const activeNote = notes.notes.find((note) => note.id === notes.activeNoteId) ?? null
+  const pluginName = pluginInfo?.name ?? 'Notes'
 
   return (
     <PluginPanel
       title={pluginName}
-      subtitle="A ready-to-clone DawnDesk plugin starter"
+      subtitle="Markdown notes with search, tags, pinning, and AI help"
       toolbarActions={
-        <div className="template-actions">
-          <Button variant="ghost" onClick={templateState.loadExampleState}>
-            Load state
+        <div className="notes-toolbar">
+          <Button variant="ghost" onClick={notes.toggleView}>
+            {notes.preferences.defaultView === 'list' ? 'Grid' : 'List'}
           </Button>
-          <Button variant="primary" onClick={templateState.saveExampleState}>
-            Save state
+          <Button variant="primary" onClick={notes.createNote}>
+            New note
           </Button>
         </div>
       }
-      statusBar={`${pluginId} v${pluginVersion} - ${templateState.status}`}
+      statusBar={`${notes.filteredNotes.length} notes - ${notes.status}`}
     >
-      <TemplateFeature pluginId={pluginId} savedState={templateState.savedState} />
+      <main className="notes-shell">
+        <aside className="notes-sidebar" aria-label="Notes">
+          <NoteList
+            activeNoteId={notes.activeNoteId}
+            notes={notes.filteredNotes}
+            preferences={notes.preferences}
+            query={notes.searchQuery}
+            selectedTag={notes.selectedTag}
+            tags={notes.tags}
+            onCreateNote={notes.createNote}
+            onDeleteNote={notes.deleteNote}
+            onPinNote={notes.togglePinned}
+            onSearchChange={notes.setSearchQuery}
+            onSelectNote={notes.setActiveNote}
+            onSortChange={notes.setSortBy}
+          />
+          <TagFilter
+            selectedTag={notes.selectedTag}
+            tags={notes.tags}
+            onSelectTag={notes.setSelectedTag}
+          />
+        </aside>
+
+        <NoteEditor
+          note={activeNote}
+          status={notes.status}
+          onAskAI={notes.askAI}
+          onCreateNote={notes.createNote}
+          onDeleteNote={notes.deleteNote}
+          onPinNote={notes.togglePinned}
+          onUpdateNote={notes.updateNote}
+        />
+      </main>
     </PluginPanel>
   )
 }
