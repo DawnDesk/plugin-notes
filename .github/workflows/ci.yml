@@ -8,7 +8,7 @@ on:
 
 jobs:
   check:
-    name: Check template
+    name: Check notes plugin
     runs-on: ubuntu-latest
 
     steps:

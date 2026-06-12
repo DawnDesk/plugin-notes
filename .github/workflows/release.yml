@@ -9,8 +9,8 @@ permissions:
   contents: write
 
 env:
-  PLUGIN_ID: plugin-template
-  SIDECAR_NAME: plugin-template-sidecar
+  PLUGIN_ID: notes
+  SIDECAR_NAME: notes-sidecar
 
 jobs:
   package:
@@ -86,8 +86,7 @@ jobs:
           mkdir -p "${package_dir}"
           cp -R dist/. "${package_dir}/"
           cp plugin.manifest.json icon.svg "${package_dir}/"
-          mkdir -p "${package_dir}/sidecar"
-          cp "src-tauri/target/${{ matrix.platform.target }}/release/${SIDECAR_NAME}${{ matrix.platform.sidecar_ext }}" "${package_dir}/sidecar/${SIDECAR_NAME}${{ matrix.platform.sidecar_ext }}"
+          cp "src-tauri/target/${{ matrix.platform.target }}/release/${SIDECAR_NAME}${{ matrix.platform.sidecar_ext }}" "${package_dir}/${SIDECAR_NAME}${{ matrix.platform.sidecar_ext }}"
 
       - name: Create archive
         shell: bash
