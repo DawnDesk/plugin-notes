@@ -1,0 +1,31 @@
+{
+  "id": "plugin-template",
+  "name": "Plugin Template",
+  "version": "0.1.0",
+  "minHostVersion": "1.0.0",
+  "description": "A ready-to-clone starter for building DawnDesk plugins.",
+  "author": "dawndesk",
+  "repository": "https://github.com/dawndesk/plugin-template",
+  "icon": "icon.svg",
+  "category": "developer",
+  "entry": "index.html",
+  "permissions": [
+    "data:read",
+    "data:write"
+  ],
+  "aiTools": [
+    {
+      "name": "template_health_check",
+      "description": "Checks whether the plugin sidecar is reachable and returns template metadata.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    }
+  ],
+  "dataDir": "plugin-template",
+  "sidecar": {
+    "binary": "plugin-template-sidecar"
+  }
+}

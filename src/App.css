@@ -1,0 +1,6 @@
+.template-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dd-space-2);
+  justify-content: flex-end;
+}
