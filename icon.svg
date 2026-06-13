@@ -1,8 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
   <title id="title">DawnDesk Notes</title>
-  <desc id="desc">A DawnDesk notes tile with a small Markdown page mark.</desc>
-  <rect width="64" height="64" rx="14" fill="var(--dd-bg-surface)" />
-  <path d="M14 18h36v28H14z" fill="var(--dd-accent-muted)" />
-  <path d="M14 18h36v28H14z" fill="none" stroke="var(--dd-accent)" stroke-width="4" />
-  <path d="M22 28h20M22 36h12" stroke="var(--dd-text-primary)" stroke-width="4" stroke-linecap="round" />
+  <desc id="desc">A DawnDesk notes tile with a Markdown page mark.</desc>
+  <rect width="64" height="64" rx="14" fill="#111827" />
+  <path d="M18 12h22l10 10v30H18z" fill="#f8fafc" />
+  <path d="M40 12v10h10" fill="#dbeafe" />
+  <path d="M40 12v10h10" fill="none" stroke="#2563eb" stroke-width="3" stroke-linejoin="round" />
+  <path d="M18 12h22l10 10v30H18z" fill="none" stroke="#2563eb" stroke-width="4" stroke-linejoin="round" />
+  <path d="M25 30l4 6 4-6v12M39 30v12M36 39l3 3 3-3" fill="none" stroke="#111827" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
 </svg>

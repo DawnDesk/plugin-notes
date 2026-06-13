@@ -87,7 +87,7 @@ Full manifest: see [`plugin.manifest.json`](./plugin.manifest.json)
 git clone https://github.com/dawndesk/plugin-notes.git
 cd plugin-notes
 pnpm install
-pnpm tauri dev
+pnpm dev
 ```
 
 During development the plugin opens as a standalone Tauri window. The `@dawndesk/ui` IPC bridge falls back to a local mock store so all host calls work without needing DawnDesk running.
@@ -95,7 +95,8 @@ During development the plugin opens as a standalone Tauri window. The `@dawndesk
 ### Build
 
 ```bash
-pnpm tauri build
+pnpm run build
+cargo build --release --manifest-path src-tauri/Cargo.toml
 ```
 
 ### Test inside DawnDesk
@@ -105,6 +106,24 @@ pnpm tauri build
 3. Restart DawnDesk — the plugin will appear in the sidebar
 
 ---
+
+### Test the registry install shape
+
+Before publishing, test the same shape that DawnDesk installs from the registry: a static frontend, manifest, icon, and sidecar binary.
+
+```powershell
+pnpm install
+pnpm run build
+cargo build --release --manifest-path src-tauri/Cargo.toml
+
+$pluginDir = "$env:LOCALAPPDATA\DawnDesk\plugins\notes"
+New-Item -ItemType Directory -Force $pluginDir | Out-Null
+Copy-Item -Recurse -Force dist\* $pluginDir
+Copy-Item -Force plugin.manifest.json, icon.svg $pluginDir
+Copy-Item -Force src-tauri\target\release\notes-sidecar.exe "$pluginDir\notes-sidecar.exe"
+```
+
+Then restart DawnDesk. The Notes plugin should appear in the sidebar and all create/edit/search/pin/delete actions should work against the host data store.
 
 ## Releasing a new version
 
