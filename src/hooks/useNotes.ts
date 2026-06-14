@@ -9,6 +9,7 @@ import {
 
 const NOTES_KEY = 'notes'
 const PREFERENCES_KEY = 'preferences'
+const NOTES_CHANGED_EVENT = 'plugin:notes:data-changed'
 const NOTE_SIZE_LIMIT = 1024 * 1024
 
 type AiAction = 'expand' | 'summarize' | 'rewrite'
@@ -98,11 +99,12 @@ function createBlankNote(): Note {
 }
 
 export function useNotes() {
-  const { getData, setData, callAI } = useDawnDesk()
+  const { getData, setData, callAI, onEvent } = useDawnDesk()
   const state = useNotesStore()
 
   useEffect(() => {
     let isMounted = true
+    let unsubscribe: (() => void) | null = null
 
     async function load() {
       try {
@@ -128,11 +130,23 @@ export function useNotes() {
     }
 
     void load()
+    void onEvent(NOTES_CHANGED_EVENT, () => {
+      void load()
+    })
+      .then((handler) => {
+        if (isMounted) {
+          unsubscribe = handler
+        } else {
+          handler()
+        }
+      })
+      .catch(() => undefined)
 
     return () => {
       isMounted = false
+      unsubscribe?.()
     }
-  }, [getData])
+  }, [getData, onEvent])
 
   async function persistNotes(notes: Note[], status: string) {
     await setData(NOTES_KEY, notes)
